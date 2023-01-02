@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Work Sans';
+  src: url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.eot');
+  src: url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.eot?#iefix')
+      format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.woff2')
+      format('woff2'),
+    url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.woff')
+      format('woff'),
+    url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.ttf')
+      format('truetype'),
+    url('//db.onlinewebfonts.com/t/f6f23fb988224e819a1cb13f0e12606b.svg#LG Smart')
+      format('svg');
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  font-weight: 600;
+  src: url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.eot');
+  src: url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.eot?#iefix')
+      format('embedded-opentype'),
+    url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.woff2')
+      format('woff2'),
+    url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.woff')
+      format('woff'),
+    url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.ttf')
+      format('truetype'),
+    url('//db.onlinewebfonts.com/t/bea53bce9ad0d95946158c29bcc35dc4.svg#LG Smart')
+      format('svg');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: #f4f8fa;
+}
