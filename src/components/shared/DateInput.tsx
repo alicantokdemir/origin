@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { useState, PropsWithChildren, useMemo } from 'react';
 
 import { Label } from './Label';
 
@@ -11,9 +11,47 @@ interface DateInputProps {
   style?: React.CSSProperties;
 }
 
+function getMonthText(date: Date) {
+  return date.toLocaleString('default', { month: 'long' });
+}
+
+function getYear(date: Date) {
+  return date.toLocaleString('default', { year: 'numeric' });
+}
+
 export function DateInput(
   props: PropsWithChildren<DateInputProps>
 ): JSX.Element {
+  const today = new Date();
+  const [currentDate, setCurrentDate] = useState(
+    new Date(today.getFullYear(), today.getMonth() + 1, today.getDate())
+  );
+
+  const currentMonth = useMemo(() => {
+    return getMonthText(currentDate);
+  }, [currentDate]);
+
+  const currentYear = useMemo(() => getYear(currentDate), [currentDate]);
+
+  const goNextMonth = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() + 1);
+
+    setCurrentDate(newDate);
+  };
+
+  const goPreviousMonth = () => {
+    const newDate = new Date(currentDate);
+    newDate.setMonth(currentDate.getMonth() - 1);
+
+    // dont update if date is in the past
+    if (+new Date() > +newDate) {
+      return;
+    }
+
+    setCurrentDate(newDate);
+  };
+
   return (
     <div {...props}>
       <Label
@@ -22,12 +60,15 @@ export function DateInput(
         text="Reach goal by"
       />
       <div style={{ position: 'relative' }}>
-        <img
+        <input
+          onClick={goPreviousMonth}
+          type="image"
           style={{
             position: 'absolute',
             left: 12,
             top: '50%',
             transform: 'translateY(-50%)',
+            zIndex: 2,
           }}
           src={chevronLeft}
           alt="chevron-left"
@@ -41,6 +82,7 @@ export function DateInput(
             border: '1px solid #E9EEF2',
             borderRadius: 4,
             position: 'relative',
+            zIndex: 1,
           }}
         >
           <div
@@ -61,16 +103,21 @@ export function DateInput(
             }}
             className="text-center"
           >
-            <p style={{ fontWeight: 600 }}>October</p>
-            <p style={{ fontWeight: 400, color: colors.blueGray400 }}>2021</p>
+            <p style={{ fontWeight: 600 }}>{currentMonth}</p>
+            <p style={{ fontWeight: 400, color: colors.blueGray400 }}>
+              {currentYear}
+            </p>
           </div>
         </div>
-        <img
+        <input
+          onClick={goNextMonth}
+          type="image"
           style={{
             position: 'absolute',
             right: 12,
             top: '50%',
             transform: 'translateY(-50%)',
+            zIndex: 2,
           }}
           src={chevronRight}
           alt="chevron-right"
