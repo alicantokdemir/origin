@@ -5,6 +5,8 @@ import { Label } from './Label';
 
 import { breakpoints, colors } from './variables';
 import icon from '../../assets/icons/dollar-sign.svg';
+import MaskedInput from 'react-text-mask';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 interface MoneyInputProps {
   text?: string;
@@ -12,7 +14,7 @@ interface MoneyInputProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const InputEl = styled.input`
+const InputEl = styled(MaskedInput)`
   height: 56px;
   color: ${colors.blueGray600};
   font-family: 'Rubik';
@@ -29,9 +31,25 @@ const InputEl = styled.input`
   padding: 14px 0 13px 44px;
 `;
 
+const defaultMaskOptions = {
+  prefix: '',
+  suffix: '',
+  includeThousandsSeparator: true,
+  thousandsSeparatorSymbol: ',',
+  allowDecimal: true,
+  decimalSymbol: '.',
+  decimalLimit: 2, // how many digits allowed after the decimal
+  integerLimit: 7, // limit length of integer numbers
+  allowNegative: false,
+  allowLeadingZeroes: false,
+};
+
 export function MoneyInput(
   props: PropsWithChildren<MoneyInputProps>
 ): JSX.Element {
+  const currencyMask = createNumberMask({
+    ...defaultMaskOptions,
+  });
   return (
     <div {...props}>
       <Label
@@ -50,7 +68,12 @@ export function MoneyInput(
           src={icon}
           alt="Dollar"
         />
-        <InputEl className="w-100" id="totalAmount" type="text" />
+        <InputEl
+          mask={currencyMask}
+          className="w-100"
+          id="totalAmount"
+          type="text"
+        />
       </div>
     </div>
   );
