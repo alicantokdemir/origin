@@ -4,10 +4,13 @@ import styled from 'styled-components';
 
 import { breakpoints, colors } from './variables';
 
+import { Text } from './Text';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const TitleContainer = styled.div`
   margin-top: 32px;
   margin-bottom: 24px;
+  text-align: center;
 
   @media (min-width: ${breakpoints.xs}) {
     margin-top: 48px;
@@ -15,24 +18,12 @@ const TitleContainer = styled.div`
 `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const TitleText = styled.h3`
-  font-family: 'Work Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 120%;
-  text-align: center;
-
+const TitleText = styled(Text.Subtitle)`
   color: ${colors.brandColorPrimary};
-
-  @media (min-width: ${breakpoints.xs}) {
-    font-weight: 400;
-    font-size: 20px;
-  }
 `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const TitleTextBold = styled.span`
+export const TitleTextBold = styled(TitleText)`
   font-weight: bold;
 `;
 
