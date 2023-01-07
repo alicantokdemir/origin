@@ -65,7 +65,7 @@ export function MonthlyInfo(
         <MonthlyAmountText>Monthly amount</MonthlyAmountText>
         <MoneyInfoText className="text-right">${monthlyPayment}</MoneyInfoText>
       </AmountContainer>
-      <DetailContainer>
+      <DetailContainer data-testid="monthly-info__detail">
         <Text.Caption>
           You’re planning{' '}
           <span className="font-weight-600">
