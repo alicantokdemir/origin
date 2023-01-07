@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useMemo } from 'react';
 import styled from 'styled-components';
-import { breakpoints, colors } from './shared/variables';
-import { Text } from '../components/shared/Text';
-import { roundTo2Decimal } from '../utils/number';
+import { breakpoints, colors } from '../shared/variables';
+import { Text } from '../shared/Text';
+import { roundTo2Decimal } from '../../utils/number';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const InfoContainer = styled.div`

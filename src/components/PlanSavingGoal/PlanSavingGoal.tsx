@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import icon from '../../assets/icons/house.svg';
 import { MoneyInput } from '../shared/MoneyInput';
 import { DateInput } from '../shared/DateInput';
-import { MonthlyInfo } from '../MonthlyInfo';
+import { MonthlyInfo } from './MonthlyInfo';
 import { Text } from '../shared/Text';
 import styled from 'styled-components';
 import { colors } from '../shared/variables';
@@ -37,7 +37,7 @@ export function PlanSavingGoal(): JSX.Element {
   const [totalAmount, setTotalAmount] = useState(25000);
 
   const monthDiff = useMemo(() => {
-    return getMonthsDiff(currentDate, today);
+    return getMonthsDiff(currentDate, new Date());
   }, [currentDate]);
 
   const goalReachBy = useMemo(() => {
