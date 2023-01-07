@@ -11,6 +11,8 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 interface MoneyInputProps {
   text?: string;
   style?: React.CSSProperties;
+  amount: number;
+  onAmountChange: (newAmount: string) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -73,6 +75,10 @@ export function MoneyInput(
           className="w-100"
           id="totalAmount"
           type="text"
+          value={props.amount}
+          onChange={(e) =>
+            props.onAmountChange(e.target.value.replace(/[, ]+/g, ''))
+          }
         />
       </div>
     </div>

@@ -1,7 +1,8 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import styled from 'styled-components';
 import { colors } from './shared/variables';
 import { Text } from '../components/shared/Text';
+import { roundTo2Decimal } from '../utils/number';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const InfoContainer = styled.div`
@@ -36,23 +37,35 @@ const MonthlyAmountText = styled(Text.Subtitle)`
 
 interface MonthlyInfoProps {
   className: string;
+  totalMonthlyDeposits: number;
+  totalAmount: number;
+  goalReachBy: string;
 }
 
 export function MonthlyInfo(
   props: PropsWithChildren<MonthlyInfoProps>
 ): JSX.Element {
+  const monthlyPayment = useMemo(
+    () => roundTo2Decimal(props.totalAmount / props.totalMonthlyDeposits),
+    [props.totalAmount, props.totalMonthlyDeposits]
+  );
+
   return (
     <InfoContainer className={props.className || ''}>
       <AmountContainer>
         <MonthlyAmountText>Monthly amount</MonthlyAmountText>
-        <MoneyInfoText className="text-right">$520.83</MoneyInfoText>
+        <MoneyInfoText className="text-right">${monthlyPayment}</MoneyInfoText>
       </AmountContainer>
       <DetailContainer>
         <Text.Caption>
           You’re planning{' '}
-          <span className="font-weight-600">48 monthly deposits</span> to reach
-          your <span className="font-weight-600">$25,000</span> goal by{' '}
-          <span className="font-weight-600">October 2020.</span>
+          <span className="font-weight-600">
+            {props.totalMonthlyDeposits} monthly deposit
+            {props.totalMonthlyDeposits > 1 ? 's' : ''}
+          </span>{' '}
+          to reach your{' '}
+          <span className="font-weight-600">${props.totalAmount}</span> goal by{' '}
+          <span className="font-weight-600">{props.goalReachBy}.</span>
         </Text.Caption>
       </DetailContainer>
     </InfoContainer>

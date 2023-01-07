@@ -1,7 +1,7 @@
-import React from 'react';
 import { Navbar } from './components/shared/Navbar';
 import { Card } from './components/shared/Card';
 import { Title, TitleTextBold } from './components/shared/Title';
+import React, { useState, PropsWithChildren, useMemo } from 'react';
 
 import icon from './assets/icons/house.svg';
 import { MoneyInput } from './components/shared/MoneyInput';
@@ -10,6 +10,7 @@ import { MonthlyInfo } from './components/MonthlyInfo';
 import { Text } from './components/shared/Text';
 import styled from 'styled-components';
 import { breakpoints, colors } from './components/shared/variables';
+import { getMonthsDiff, getMonthText, getYear } from './utils/date';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const InfoInputs = styled.div`
@@ -29,6 +30,29 @@ const InfoInputs = styled.div`
 `;
 
 export function App(): JSX.Element {
+  const today = new Date();
+  const [currentDate, setCurrentDate] = useState(
+    new Date(today.getFullYear(), today.getMonth() + 1, today.getDate())
+  );
+
+  const [totalAmount, setTotalAmount] = useState(25000);
+
+  const monthDiff = useMemo(() => {
+    return getMonthsDiff(currentDate, today);
+  }, [currentDate]);
+
+  const goalReachBy = useMemo(() => {
+    return getMonthText(currentDate) + ' ' + getYear(currentDate);
+  }, [currentDate]);
+
+  function onDateChange(newDate: Date) {
+    setCurrentDate(newDate);
+  }
+
+  function onAmountChange(newAmount: string) {
+    setTotalAmount(+newAmount);
+  }
+
   return (
     <>
       <Navbar />
@@ -47,11 +71,24 @@ export function App(): JSX.Element {
         </div>
 
         <InfoInputs className="mb-4 d-flex">
-          <MoneyInput style={{ flex: '60%', minWidth: 'min(288px, 100%)' }} />
-          <DateInput style={{ flex: '40%', minWidth: 'min(192px, 100%)' }} />
+          <MoneyInput
+            onAmountChange={onAmountChange}
+            amount={totalAmount}
+            style={{ flex: '60%', minWidth: 'min(288px, 100%)' }}
+          />
+          <DateInput
+            onDateChange={onDateChange}
+            reachDate={currentDate}
+            style={{ flex: '40%', minWidth: 'min(192px, 100%)' }}
+          />
         </InfoInputs>
 
-        <MonthlyInfo className="mb-5" />
+        <MonthlyInfo
+          totalAmount={totalAmount}
+          totalMonthlyDeposits={monthDiff}
+          goalReachBy={goalReachBy}
+          className="mb-5"
+        />
 
         <button
           style={{

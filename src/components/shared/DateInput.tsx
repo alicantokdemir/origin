@@ -5,51 +5,52 @@ import { Label } from './Label';
 import chevronLeft from '../../assets/icons/chevron-left.svg';
 import chevronRight from '../../assets/icons/chevron-right.svg';
 import { colors } from './variables';
+import { getMonthText, getYear } from '../../utils/date';
 
 interface DateInputProps {
   text?: string;
   style?: React.CSSProperties;
-}
-
-function getMonthText(date: Date) {
-  return date.toLocaleString('default', { month: 'long' });
-}
-
-function getYear(date: Date) {
-  return date.toLocaleString('default', { year: 'numeric' });
+  reachDate: Date;
+  onDateChange: (date: Date) => void;
 }
 
 export function DateInput(
   props: PropsWithChildren<DateInputProps>
 ): JSX.Element {
-  const today = new Date();
-  const [currentDate, setCurrentDate] = useState(
-    new Date(today.getFullYear(), today.getMonth() + 1, today.getDate())
+  const currentMonth = useMemo(() => {
+    return getMonthText(props.reachDate);
+  }, [props.reachDate]);
+
+  const currentYear = useMemo(
+    () => getYear(props.reachDate),
+    [props.reachDate]
   );
 
-  const currentMonth = useMemo(() => {
-    return getMonthText(currentDate);
-  }, [currentDate]);
-
-  const currentYear = useMemo(() => getYear(currentDate), [currentDate]);
-
   const goNextMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(currentDate.getMonth() + 1);
+    const newDate = new Date(props.reachDate);
+    newDate.setMonth(props.reachDate.getMonth() + 1);
 
-    setCurrentDate(newDate);
+    props.onDateChange(newDate);
   };
 
   const goPreviousMonth = () => {
-    const newDate = new Date(currentDate);
-    newDate.setMonth(currentDate.getMonth() - 1);
+    const newDate = new Date(props.reachDate);
+    newDate.setMonth(props.reachDate.getMonth() - 1);
 
     // dont update if date is in the past
     if (+new Date() > +newDate) {
       return;
     }
 
-    setCurrentDate(newDate);
+    props.onDateChange(newDate);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.code === 'ArrowLeft') {
+      goPreviousMonth();
+    } else if (e.code === 'ArrowRight') {
+      goNextMonth();
+    }
   };
 
   return (
@@ -59,7 +60,7 @@ export function DateInput(
         className="d-block mb-1"
         text="Reach goal by"
       />
-      <div style={{ position: 'relative' }}>
+      <div onKeyDown={onKeyDown} tabIndex={0} style={{ position: 'relative' }}>
         <input
           onClick={goPreviousMonth}
           type="image"
