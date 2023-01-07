@@ -1,4 +1,5 @@
-import React, { useState, PropsWithChildren, useMemo } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
+import styled from 'styled-components';
 
 import { Label } from './Label';
 
@@ -6,6 +7,25 @@ import chevronLeft from '../../assets/icons/chevron-left.svg';
 import chevronRight from '../../assets/icons/chevron-right.svg';
 import { colors } from './variables';
 import { getMonthText, getYear } from '../../utils/date';
+import { Text } from '../shared/Text';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const DateInputContainer = styled.div`
+  height: 56px;
+  border: 1px solid ${colors.blueGray50};
+  border-radius: 4px;
+  position: relative;
+  z-index: 1;
+`;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const DateInputTextBox = styled.div`
+  width: 76px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 interface DateInputProps {
   text?: string;
@@ -74,42 +94,18 @@ export function DateInput(
           src={chevronLeft}
           alt="chevron-left"
         />
-        <div
-          className="w-100"
-          style={{
-            height: 56,
-            /* $blueGray50 */
-
-            border: '1px solid #E9EEF2',
-            borderRadius: 4,
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <div
-            style={{
-              width: 76,
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-
-              /* LG / paragraph--semibold */
-
-              fontFamily: 'Work Sans',
-              fontStyle: 'normal',
-              fontSize: '16px',
-              lineHeight: '150%',
-              color: colors.blueGray900,
-            }}
-            className="text-center"
-          >
-            <p style={{ fontWeight: 600 }}>{currentMonth}</p>
-            <p style={{ fontWeight: 400, color: colors.blueGray400 }}>
+        <DateInputContainer className="w-100">
+          <DateInputTextBox className="text-center">
+            <Text.Paragraph style={{ fontWeight: 600 }}>
+              {currentMonth}
+            </Text.Paragraph>
+            <Text.Paragraph
+              style={{ fontWeight: 400, color: colors.blueGray400 }}
+            >
               {currentYear}
-            </p>
-          </div>
-        </div>
+            </Text.Paragraph>
+          </DateInputTextBox>
+        </DateInputContainer>
         <input
           onClick={goNextMonth}
           type="image"

@@ -12,7 +12,7 @@ const CardContainer = styled.div`
   background: #ffffff;
   box-shadow: ${boxShadows.level4};
   border-radius: 8px;
-  padding: 24px;
+  padding: 24px 24px 40px 24px;
   max-width: 100%;
 
   @media (min-width: ${breakpoints.xs}) {

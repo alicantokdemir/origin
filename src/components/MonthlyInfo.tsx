@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useMemo } from 'react';
 import styled from 'styled-components';
-import { colors } from './shared/variables';
+import { breakpoints, colors } from './shared/variables';
 import { Text } from '../components/shared/Text';
 import { roundTo2Decimal } from '../utils/number';
 
@@ -12,17 +12,26 @@ const InfoContainer = styled.div`
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const AmountContainer = styled.div`
-  padding: 24px 32px 16px 32px;
+  padding: 24px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+
+  @media (min-width: ${breakpoints.xs}) {
+    padding: 24px 32px 16px 32px;
+  }
 `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const DetailContainer = styled.div`
   background: ${colors.blueGray10};
   padding: 24px 32px 24px 32px;
+  text-align: center;
+
+  @media (min-width: ${breakpoints.xs}) {
+    text-align: left;
+  }
 `;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention

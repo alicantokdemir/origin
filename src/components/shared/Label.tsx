@@ -18,7 +18,7 @@ const LabelText = styled(Text.Description)`
 
 export function Label(props: PropsWithChildren<LabelProps>): JSX.Element {
   return (
-    <label htmlFor={props.htmlFor}>
+    <label className={props.className} htmlFor={props.htmlFor}>
       <LabelText>{props.children || props.text}</LabelText>
     </label>
   );
