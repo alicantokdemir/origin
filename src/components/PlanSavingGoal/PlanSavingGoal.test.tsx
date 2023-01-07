@@ -27,7 +27,7 @@ describe('PlanSavingGoal', () => {
     // default is 48 months from today
     const component = render(<PlanSavingGoal />);
 
-    const moneyInput = component.getByTestId('date-input');
+    const dateInput = component.getByTestId('date-input');
 
     const today = new Date();
     const defaultDate = new Date(
@@ -36,8 +36,8 @@ describe('PlanSavingGoal', () => {
       today.getDate()
     );
 
-    expect(moneyInput).toBeInTheDocument();
-    const paragraphs = moneyInput.querySelectorAll('p');
+    expect(dateInput).toBeInTheDocument();
+    const paragraphs = dateInput.querySelectorAll('p');
 
     expect(paragraphs.length).toBe(2);
     expect(paragraphs[0].textContent).toBe(getMonthText(defaultDate));
