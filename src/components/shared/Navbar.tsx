@@ -19,7 +19,7 @@ export function Navbar(
   props: PropsWithChildren<Record<string, never>>
 ): JSX.Element {
   return (
-    <Nav>
+    <Nav data-testid="navbar">
       <img style={{ height: '100%' }} src={logo} alt="Origin Logo" />
     </Nav>
   );

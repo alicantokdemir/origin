@@ -53,7 +53,7 @@ export function MoneyInput(
     ...defaultMaskOptions,
   });
   return (
-    <div {...props}>
+    <div data-testid="money-input" {...props}>
       <Label
         htmlFor="totalAmount"
         className="d-block mb-1"

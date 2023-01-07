@@ -60,7 +60,7 @@ export function MonthlyInfo(
   );
 
   return (
-    <InfoContainer className={props.className || ''}>
+    <InfoContainer data-testid="monthly-info" className={props.className || ''}>
       <AmountContainer>
         <MonthlyAmountText>Monthly amount</MonthlyAmountText>
         <MoneyInfoText className="text-right">${monthlyPayment}</MoneyInfoText>

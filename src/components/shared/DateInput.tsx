@@ -74,7 +74,7 @@ export function DateInput(
   };
 
   return (
-    <div {...props}>
+    <div data-testid="date-input" {...props}>
       <Label
         htmlFor="reachGoalBy"
         className="d-block mb-1"
