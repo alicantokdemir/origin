@@ -69,11 +69,13 @@ export function PlanSavingGoal(): JSX.Element {
 
         <InfoInputs className="mb-4 d-flex">
           <MoneyInput
+            data-testid="money-input"
             onAmountChange={onAmountChange}
             amount={totalAmount}
             style={{ flex: '60%', minWidth: 'min(288px, 100%)' }}
           />
           <DateInput
+            data-testid="date-input"
             onDateChange={onDateChange}
             reachDate={currentDate}
             style={{ flex: '40%', minWidth: 'min(192px, 100%)' }}
@@ -81,6 +83,7 @@ export function PlanSavingGoal(): JSX.Element {
         </InfoInputs>
 
         <MonthlyInfo
+          data-testid="monthly-info"
           totalAmount={totalAmount}
           totalMonthlyDeposits={monthDiff}
           goalReachBy={goalReachBy}

@@ -31,7 +31,7 @@ export function Title(
   props: PropsWithChildren<Record<string, unknown>>
 ): JSX.Element {
   return (
-    <TitleContainer>
+    <TitleContainer data-testid="title">
       <TitleText>{props.children}</TitleText>
     </TitleContainer>
   );
